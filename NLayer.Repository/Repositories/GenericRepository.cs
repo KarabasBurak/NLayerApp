@@ -35,7 +35,7 @@ namespace NLayer.Repository.Repositories
             return await _dbSet.AnyAsync(expression);
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
+        public IQueryable<T> GetAll()
         {
             // AsQueryable dönmemiizn sebebi; verilerin tamamını çekerken şartlı (orderby gibi) çekmek için Queryable döndük. Daha sonra ToList() diyeceğiz.
             // AsNoTracking; EF Core çekmiş olduğu verileri memory'e almasın. Track etmezse daha performanslı çalışsın. AsNoTracking kullanmazsak 1000 tane veriyi memory'e alır ve izler. 
@@ -52,9 +52,9 @@ namespace NLayer.Repository.Repositories
             _dbSet.Remove(entity); // Burada DB'deki veriyi silmiyoruz. Sileceğimiz veriyi işaretliyoruz daha sonra SaveChange metodunu çağırınca sileceğiz.
         }
 
-        public void RemoveRange(T entity)
+        public void RemoveRange(IEnumerable<T> entities)
         {
-            _dbSet.RemoveRange(entity); // foreach ile datalarda geziyor. Silinecek verileri işaretliyor. Çoklu silme işlemlerinde kullanacağız
+            _dbSet.RemoveRange(entities); // foreach ile datalarda geziyor. Silinecek verileri işaretliyor. Çoklu silme işlemlerinde kullanacağız
         }
 
         public void Update(T entity)
