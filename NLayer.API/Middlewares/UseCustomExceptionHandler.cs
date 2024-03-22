@@ -16,19 +16,27 @@ namespace NLayer.API.Middlewares
                 {
                     // API'de yazdığımız için response tipini belirledik.
                     context.Response.ContentType = "application/json"; 
-                                                                       // 
+                                                                       
                  // IExceptionHandlerFeature interface ile fırlatılan hatayı yakaladık. context nesnesi üzerinden Feature koleksiyonuna erişip ve bu koleksiyondan IExceptionHandlerFeature arayüzü ile hata yakalandı ve exceptionFeature nesnesine atandı. 
                     var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();  
 
                     // exceptionFeature nesnesine atanan hataya switch ifadesi ile statusCode atama işlemi yapılır. Aşağıda, Client tarafından hata ise 400, Client tarafından değilse 500 olarak belirledik.
                     var statusCode = exceptionFeature.Error switch
                     {
-                        ClientSideException => 400,
+                        ClientSideException => 404,
+                        ClientSideForbiddenException=>403,
                         _ => 500
                     };
 
+                    
+
                     // Yukarıda belirlenen statusCode, HttpContext context'in response'un StatusCoduna atadık.
                     context.Response.StatusCode = statusCode;
+
+                    if (statusCode == 500)
+                    {
+                        throw new Exception("Sunucuya Bağlanamadı");
+                    }
 
 
                     // Fail durumunda yukarıdan gelen statusCode ve hata mesajını response nesnesine atadık
