@@ -8,7 +8,7 @@ namespace NLayer.Core.DTOs
 {
     public class NoContentDto
     {
-
+        public List<String> Errors { get; set; }
     }
 }
 
