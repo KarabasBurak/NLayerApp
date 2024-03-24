@@ -3,16 +3,13 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
-    // Service, API ile generic repository arasında bir köprüdür. Ayrıca savechange metodu da burada çağırılır.
+    // Service, API ile generic repository arasında bir köprüdür. Ayrıca savechange metodu da burada çağırılır. SaveChange metodundna sonra yapmak istenilen işlem kaydedilir.
+    // Repository katmanı yani EF Core DbContext sınıfında Crud veya diğer operasyonlar direkt olrak gerçekleşmez. Service katmanında bu işlemleri gerçekleştiriyoruz. Bu işlemleri service katmanında yapıp EF Core DbContext ile veritabanını haberleştiriyoruz.
+    // Core katmanında, IGenericRepository ve IService sınıflarında farklı farklı metodlar tanımlanmasının sebebi budur. 
     public class Service<T> : IService<T> where T : class
     {
         private readonly IGenericRepository<T> _repository;
@@ -62,8 +59,8 @@ namespace NLayer.Service.Services
 
         public async Task RemoveAsync(T entity)
         {
-            _repository.Remove(entity);
-            await _unitOfWork.CommitAsync();
+            _repository.Remove(entity);  // Remove ve Update metodunun EF Core db context'te asenkron özelliği yok. await olmadan db'de silinecek veriyi sileceğimize dair işretledik.
+            await _unitOfWork.CommitAsync();  // İşaretlenen veri de burada kaydedildi.
             
         }
 

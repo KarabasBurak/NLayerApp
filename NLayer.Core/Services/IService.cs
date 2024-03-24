@@ -4,7 +4,7 @@ namespace NLayer.Core.Services
 {
     public interface IService<T> where T : class
     {
-        // IService veritabanına değişiklikleri yansıtacağımız için SaveChangeAsync metodunu kullanacağımız için Update ve Remove hatta diğer metotlarınn dönüş türü Task oldu (Async)
+        // IService, veritabanına değişiklikleri yansıtacağımız sınıftır. Ayrıca Update ve Remove hatta diğer metotlarınn dönüş türü Task oldu (Async). IGenericRepository'de tanımlanan metodlara göre farklılık bulunmaktaıdr.
 
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Repository.Repositories
 {
@@ -37,7 +32,7 @@ namespace NLayer.Repository.Repositories
 
         public IQueryable<T> GetAll()
         {
-            // AsQueryable dönmemiizn sebebi; verilerin tamamını çekerken şartlı (orderby gibi) çekmek için Queryable döndük. Daha sonra ToList() diyeceğiz.
+            // AsQueryable dönmemiizn sebebi; verilerin tamamını çekerken şartlı (order by gibi) çekmek için Queryable döndük. Daha sonra ToList() diyeceğiz.
             // AsNoTracking; EF Core çekmiş olduğu verileri memory'e almasın. Track etmezse daha performanslı çalışsın. AsNoTracking kullanmazsak 1000 tane veriyi memory'e alır ve izler. 
             return _dbSet.AsNoTracking().AsQueryable();
         }
