@@ -65,7 +65,7 @@ namespace NLayer.API.Controllers
         {
             await _productService.UpdateAsync(_mapper.Map<Product>(productUpdateDto));
 
-            // Geriye bir şey dönmeyeceğimiz için NoContentDto sınıfını kullandık. Başarılı lduğunu belirtmek için de 204 yazdık. Bu dönüş şekli başarılı olduğunda geçerlidir. İlerleyen zamanda başarısız olması gibi diğer StatusCode durumlarının da dönüş şekillerini yazacağız.
+            // Geriye bir şey dönmeyeceğimiz için NoContentDto sınıfını kullandık. Başarılı olduğunu belirtmek için de 204 yazdık. Bu dönüş şekli başarılı olduğunda geçerlidir. İlerleyen zamanda başarısız olması gibi diğer StatusCode durumlarının da dönüş şekillerini yazacağız.
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));  
         }
 
