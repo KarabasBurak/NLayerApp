@@ -19,11 +19,11 @@ namespace NLayer.Core.DTOs
 
 
         /*
-        1) Yukarıda tanımlanan entityler için aşağıda Success, Fail metotları tanımlandı.
-        2) Success ve Fail olduğunda yukarıdaki entityler için statusCode, data, errors gibi nesneler üzerinden client'a cevap döneceğiz.
-        3) Bu işlemleri CustomResponseDto sınıfında şu şekilde yaptık. CustomResponseDto sınıfında (yukarıda) tanımlanan entitylerden yeni nesneler (data, statusCode, errors) oluşturduk. Bu neseneler üzerinden client'a işlemin başarılı veya başarısız olduğunu StatusCode üzerinden cevap döneceğiz. 
+        1) Yukarıda tanımlanan propertyler için aşağıda Success, Fail metotları tanımlandı.
+        2) Success ve Fail olduğunda yukarıdaki propertyler için statusCode, data, errors gibi nesneler üzerinden client'a cevap döneceğiz.
+        3) Bu işlemleri CustomResponseDto sınıfında şu şekilde yaptık. CustomResponseDto sınıfında (yukarıda) tanımlanan propertyler (data, statusCode, errors) oluşturduk. Bu propertyler üzerinden client'a işlemin başarılı veya başarısız olduğunu StatusCode üzerinden cevap döneceğiz. 
 
-        ÖRNEĞİN; client, bir ürün ekleme işlemi yapacak. Bu işlem başarılı olursa 201 StatusCode'u ile başarılı olduğunu client'a cevap olarak dönmem gerekiyor. Bunun için Success metotlarında oluşturulan nesneler ile client'a cevap döneceğiz ama statusCode'u client görmeyecek. Başarısız olursa da Fail static metotlarında tanımlanan nesneler ile cevap döneceğiz. 
+        ÖRNEĞİN; client, bir ürün ekleme işlemi yapacak. Bu işlem başarılı olursa 201 StatusCode'u ile başarılı olduğunu client'a cevap olarak dönmem gerekiyor. Bunun için Success metotlarında oluşturulan nesneler ile yukarıdaki propertyler ile client'a cevap döneceğiz ama statusCode'u client görmeyecek. Başarısız olursa da Fail static metotlarında tanımlanan nesneler ile cevap döneceğiz. 
          */
         public static CustomResponseDto<T> Success(int statusCode, T data)
         {
